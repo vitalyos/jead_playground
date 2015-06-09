@@ -24,9 +24,29 @@ ExternalProject_Add(hiberlite
   BUILD_COMMAND make libhiberlite.a
   INSTALL_COMMAND ""
   )
+
+#ExternalProject_Add(fruit
+#  SOURCE_DIR ${LIB_DIR}/fruit
+#  GIT_REPOSITORY git@github.com:google/fruit.git
+#  CONFIGURE_COMMAND cmake
+#  BUILD_IN_SOURCE 1
+#  BUILD_COMMAND make libfruit.a
+#  INSTALL_COMMAND ""
+#  )
+
+ExternalProject_Add(glog
+  SOURCE_DIR ${LIB_DIR}/glog
+  GIT_REPOSITORY git@github.com:google/glog.git
+  CONFIGURE_COMMAND ${LIB_DIR}/glog/configure
+  BUILD_IN_SOURCE 1
+  BUILD_COMMAND make
+  INSTALL_COMMAND ""
+  )
 include_directories(${LIB_DIR}/hiberlite/include/)
+include_directories(${LIB_DIR}/glog/include/)
 
 
 add_library(${PROJECT_NAME} ${HEADERS} ${SOURCES})
 add_dependencies(${PROJECT_NAME} hiberlite)
-target_link_libraries(${PROJECT_NAME} glog fruit  ${LIB_DIR}/hiberlite/libhiberlite.a)
+add_dependencies(${PROJECT_NAME} glog)
+target_link_libraries(${PROJECT_NAME} ${LIB_DIR}/glog/libglog.a  ${LIB_DIR}/hiberlite/libhiberlite.a)
