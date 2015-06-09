@@ -1,5 +1,5 @@
 project (backend)
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 2.8)
 add_definitions(-std=c++11 -W -Wall)
 include(ExternalProject)
 
@@ -25,14 +25,14 @@ ExternalProject_Add(hiberlite
   INSTALL_COMMAND ""
   )
 
-#ExternalProject_Add(fruit
-#  SOURCE_DIR ${LIB_DIR}/fruit
-#  GIT_REPOSITORY git@github.com:google/fruit.git
-#  CONFIGURE_COMMAND cmake
-#  BUILD_IN_SOURCE 1
-#  BUILD_COMMAND make libfruit.a
-#  INSTALL_COMMAND ""
-#  )
+ExternalProject_Add(fruit
+  SOURCE_DIR ${LIB_DIR}/fruit
+  GIT_REPOSITORY git@github.com:google/fruit.git
+  CONFIGURE_COMMAND cmake ${LIB_DIR}/fruit
+  BUILD_IN_SOURCE 1
+  BUILD_COMMAND make
+  INSTALL_COMMAND ""
+  )
 
 ExternalProject_Add(glog
   SOURCE_DIR ${LIB_DIR}/glog
@@ -44,9 +44,14 @@ ExternalProject_Add(glog
   )
 include_directories(${LIB_DIR}/hiberlite/include/)
 include_directories(${LIB_DIR}/glog/include/)
+include_directories(${LIB_DIR}/fruit/include/)
 
-
-add_library(${PROJECT_NAME} ${HEADERS} ${SOURCES})
+add_library(${PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})
 add_dependencies(${PROJECT_NAME} hiberlite)
+add_dependencies(${PROJECT_NAME} fruit)
 add_dependencies(${PROJECT_NAME} glog)
-target_link_libraries(${PROJECT_NAME} ${LIB_DIR}/glog/libglog.a  ${LIB_DIR}/hiberlite/libhiberlite.a)
+target_link_libraries(${PROJECT_NAME}
+    ${LIB_DIR}/glog/libglog.a
+    ${LIB_DIR}/hiberlite/libhiberlite.a
+    ${LIB_DIR}/fruit/src/libfruit.so
+)
