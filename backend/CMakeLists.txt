@@ -10,7 +10,6 @@ file (GLOB SOURCES
    "model/src/*.cpp"
 )
 
-ADD_SUBDIRECTORY(${LIB_DIR}/curlcpp) # Change `ext/curlcpp` to a directory according to your setup
 INCLUDE_DIRECTORIES(${CURLCPP_SOURCE_DIR}/include)
 
 #set (CURLCPP_INCLUDE_DIR ${LIB_DIR}/curlcpp/include/)

@@ -8,6 +8,7 @@ file (GLOB SOURCES
    "src/*.cpp"
 )
 
-include_directories("/inc" ${GLOG_INCLUDE_DIR} ${BACKEND_INCLUDE_DIRS})
+include_directories("/inc" ${GLOG_INCLUDE_DIR} ${BACKEND_INCLUDE_DIRS} ${CURLCPP_SOURCE_DIR}/include ${jsoncpp_SOURCE_DIR}/include)
+
 add_executable(run ${HEADERS} ${SOURCES})
-target_link_libraries (run ${GLOG_LIB} backend)
+target_link_libraries (run ${GLOG_LIB} backend curlcpp ${LIB_DIR}/jsoncpp/src/lib_json/libjsoncpp.a)
