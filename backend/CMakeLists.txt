@@ -32,6 +32,13 @@ ExternalProject_Add(hiberlite
   INSTALL_COMMAND ""
   )
 
+#sqlite
+# sudo aptitude install libsqlite3-dev
+find_library(SQLITE3_LIB sqlite3)
+if(NOT SQLITE3_LIB)
+  message(SEND_ERROR "Failed to find the sqlite3 library, need to install to you system.")
+endif()
+
 add_library(${PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})
 
 add_dependencies(${PROJECT_NAME} hiberlite fruit glog)
@@ -40,4 +47,5 @@ target_link_libraries(${PROJECT_NAME}
     ${GLOG_LIB}
     ${HIBERLATE_LIB}
     ${FRUIT_LIB}
+    ${SQLITE3_LIB}
 )
