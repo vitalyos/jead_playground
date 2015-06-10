@@ -1,2 +1,14 @@
 project (frontend)
 cmake_minimum_required(VERSION 2.8)
+add_definitions(-std=c++11 -W -Wall)
+file (GLOB HEADERS
+   "/inc/*.hpp"
+)
+file (GLOB SOURCES
+   "src/*.cpp"
+)
+
+include_directories("/inc" ${GLOG_INCLUDE_DIR})
+
+add_executable(run ${HEADERS} ${SOURCES})
+target_link_libraries (run ${GLOG_LIB})

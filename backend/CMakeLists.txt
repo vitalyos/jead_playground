@@ -12,9 +12,16 @@ file (GLOB SOURCES
    "repository/inc/*.hpp"
 )
 
-include_directories("model/inc" "repository/inc")
-set (LIB_DIR ${CMAKE_CURRENT_BINARY_DIR}/../lib)
-# add hiberlit
+
+set (HIBERLATE_INCLUDE_DIR ${LIB_DIR}/hiberlite/include/)
+set (HIBERLATE_LIB ${LIB_DIR}/hiberlite/libhiberlite.a)
+include_directories(
+   "model/inc"
+   "repository/inc"
+   ${FRUIT_INCLUDE_DIR}
+   ${GLOG_INCLUDE_DIR}
+   ${HIBERLATE_INCLUDE_DIR}
+)
 
 ExternalProject_Add(hiberlite
   SOURCE_DIR ${LIB_DIR}/hiberlite
@@ -25,33 +32,12 @@ ExternalProject_Add(hiberlite
   INSTALL_COMMAND ""
   )
 
-ExternalProject_Add(fruit
-  SOURCE_DIR ${LIB_DIR}/fruit
-  GIT_REPOSITORY git@github.com:google/fruit.git
-  CONFIGURE_COMMAND cmake ${LIB_DIR}/fruit
-  BUILD_IN_SOURCE 1
-  BUILD_COMMAND make
-  INSTALL_COMMAND ""
-  )
-
-ExternalProject_Add(glog
-  SOURCE_DIR ${LIB_DIR}/glog
-  GIT_REPOSITORY git@github.com:google/glog.git
-  CONFIGURE_COMMAND ${LIB_DIR}/glog/configure
-  BUILD_IN_SOURCE 1
-  BUILD_COMMAND make
-  INSTALL_COMMAND ""
-  )
-include_directories(${LIB_DIR}/hiberlite/include/)
-include_directories(${LIB_DIR}/glog/include/)
-include_directories(${LIB_DIR}/fruit/include/)
-
 add_library(${PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})
-add_dependencies(${PROJECT_NAME} hiberlite)
-add_dependencies(${PROJECT_NAME} fruit)
-add_dependencies(${PROJECT_NAME} glog)
+
+add_dependencies(${PROJECT_NAME} hiberlite fruit glog)
+
 target_link_libraries(${PROJECT_NAME}
-    ${LIB_DIR}/glog/libglog.a
-    ${LIB_DIR}/hiberlite/libhiberlite.a
-    ${LIB_DIR}/fruit/src/libfruit.so
+    ${GLOG_LIB}
+    ${HIBERLATE_LIB}
+    ${FRUIT_LIB}
 )
