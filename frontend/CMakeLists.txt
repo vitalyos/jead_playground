@@ -8,7 +8,6 @@ file (GLOB SOURCES
    "src/*.cpp"
 )
 
-include_directories("/inc" ${GLOG_INCLUDE_DIR})
-
+include_directories("/inc" ${GLOG_INCLUDE_DIR} ${BACKEND_INCLUDE_DIRS})
 add_executable(run ${HEADERS} ${SOURCES})
-target_link_libraries (run ${GLOG_LIB})
+target_link_libraries (run ${GLOG_LIB} backend)

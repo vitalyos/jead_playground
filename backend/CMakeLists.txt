@@ -5,47 +5,32 @@ include(ExternalProject)
 
 file (GLOB HEADERS
    "model/inc/*.hpp"
-   "repository/inc/*.hpp"
 )
 file (GLOB SOURCES
    "model/src/*.cpp"
-   "repository/inc/*.hpp"
 )
 
+ADD_SUBDIRECTORY(${LIB_DIR}/curlcpp) # Change `ext/curlcpp` to a directory according to your setup
+INCLUDE_DIRECTORIES(${CURLCPP_SOURCE_DIR}/include)
 
-set (HIBERLATE_INCLUDE_DIR ${LIB_DIR}/hiberlite/include/)
-set (HIBERLATE_LIB ${LIB_DIR}/hiberlite/libhiberlite.a)
+#set (CURLCPP_INCLUDE_DIR ${LIB_DIR}/curlcpp/include/)
+#set (CURLCPP_LIB ${LIB_DIR}/curlcpp/src/lib_json/libhiberlite.a)
+
+set(BACKEND_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/model/inc PARENT_SCOPE)
+
 include_directories(
    "model/inc"
    "repository/inc"
    ${FRUIT_INCLUDE_DIR}
    ${GLOG_INCLUDE_DIR}
-   ${HIBERLATE_INCLUDE_DIR}
 )
-
-ExternalProject_Add(hiberlite
-  SOURCE_DIR ${LIB_DIR}/hiberlite
-  GIT_REPOSITORY git@github.com:paulftw/hiberlite.git
-  CONFIGURE_COMMAND ""
-  BUILD_IN_SOURCE 1
-  BUILD_COMMAND make libhiberlite.a
-  INSTALL_COMMAND ""
-  )
-
-#sqlite
-# sudo aptitude install libsqlite3-dev
-find_library(SQLITE3_LIB sqlite3)
-if(NOT SQLITE3_LIB)
-  message(SEND_ERROR "Failed to find the sqlite3 library, need to install to you system.")
-endif()
 
 add_library(${PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})
 
-add_dependencies(${PROJECT_NAME} hiberlite fruit glog)
+add_dependencies(${PROJECT_NAME} fruit glog)
 
 target_link_libraries(${PROJECT_NAME}
     ${GLOG_LIB}
-    ${HIBERLATE_LIB}
     ${FRUIT_LIB}
     ${SQLITE3_LIB}
 )

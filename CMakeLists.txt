@@ -4,9 +4,11 @@ cmake_minimum_required(VERSION 2.8)
 include(ExternalProject)
 
 set (LIB_DIR ${CMAKE_CURRENT_BINARY_DIR}/lib)
+
 set (GLOG_INCLUDE_DIR ${LIB_DIR}/glog/include/)
-set (FRUIT_INCLUDE_DIR ${LIB_DIR}/fruit/include/)
 set (GLOG_LIB ${LIB_DIR}/glog/lib/libglog.so)
+
+set (FRUIT_INCLUDE_DIR ${LIB_DIR}/fruit/include/)
 set (FRUIT_LIB ${LIB_DIR}/fruit/lib/libfruit.so)
 
 add_subdirectory(backend)
