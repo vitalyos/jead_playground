@@ -9,6 +9,7 @@ class DataImporter
 public:
     DataImporter() = default;
     virtual std::vector <User> getAllUsers () = 0;
+    virtual ~DataImporter () = default;
 };
 
 #endif // DATAIMPORTER

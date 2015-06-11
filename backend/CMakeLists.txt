@@ -6,8 +6,7 @@ include(ExternalProject)
 file (GLOB HEADERS "inc/*.hpp")
 file (GLOB SOURCES "src/*.cpp")
 
-INCLUDE_DIRECTORIES ("inc" ${CURLCPP_SOURCE_DIR}/include ${jsoncpp_SOURCE_DIR}/include)
-
+include_directories ("inc" ${CURLCPP_SOURCE_DIR}/include ${jsoncpp_SOURCE_DIR}/include ${FRUIT_SOURCE_DIR}/include)
 set(BACKEND_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/inc PARENT_SCOPE)
 
 #set(BACKEND_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/model/inc PARENT_SCOPE)
@@ -23,4 +22,5 @@ target_link_libraries(${PROJECT_NAME}
     glog
     curlcpp
     ${LIB_DIR}/jsoncpp/src/lib_json/libjsoncpp.a
+    fruit
 )
