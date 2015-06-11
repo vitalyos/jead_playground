@@ -35,3 +35,13 @@ void User::setLastName(const std::string &lastName)
 {
     m_lastName = lastName;
 }
+long User::id() const
+{
+    return m_id;
+}
+
+void User::setId(long id)
+{
+    m_id = id;
+}
+

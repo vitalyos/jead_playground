@@ -16,6 +16,9 @@ public:
     std::string lastName() const;
     void setLastName(const std::string &lastName);
 
+    long id() const;
+    void setId(long id);
+
 private:
     std::string m_userName;
     std::string m_firstName;
