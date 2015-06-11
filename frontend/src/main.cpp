@@ -1,5 +1,4 @@
 #include <glog/logging.h>
-#include <sstream>
 
 #include "downloader.hpp"
 #include "curlcppdownloader.hpp"
@@ -17,12 +16,7 @@ int main(int argc, const char **argv) {
     auto users = di->getAllUsers();
     for (auto & user : users)
     {
-        std::stringstream stream;
-        stream << user.id () << " | "
-               << user.firstName ()<< " | "
-               << user.lastName () << " | "
-               << user.userName ();
-        LOG (INFO) << stream.str();
+        LOG (INFO) << user;
     }
     delete di;
     delete d;

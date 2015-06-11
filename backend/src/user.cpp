@@ -45,3 +45,11 @@ void User::setId(long id)
     m_id = id;
 }
 
+std::ostream& operator << (std::ostream & os, const User & user)
+{
+    os << user.id () << " | "
+       << user.firstName ()<< " | "
+       << user.lastName () << " | "
+       << user.userName ();
+    return os;
+}

@@ -2,6 +2,7 @@
 #define USER_H
 
 #include <string>
+#include <ostream>
 
 class User
 {
@@ -18,6 +19,8 @@ public:
 
     long id() const;
     void setId(long id);
+
+    friend std::ostream & operator << (std::ostream & os, const User & u);
 
 private:
     std::string m_userName;
