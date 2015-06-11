@@ -6,6 +6,14 @@ include(ExternalProject)
 file (GLOB HEADERS "inc/*.hpp")
 file (GLOB SOURCES "src/*.cpp")
 
+FILE(GLOB UnitTests_SRCS "test/*Test.cpp" )
+ADD_EXECUTABLE(UnitTester test/test_runner.cpp ${UnitTests_SRCS})
+target_link_libraries(UnitTester cppunit backend)
+FOREACH(test ${UnitTests_SRCS})
+        GET_FILENAME_COMPONENT(TestName ${test} NAME_WE)
+        ADD_TEST(${TestName} UnitTester ${TestName})
+ENDFOREACH(test)
+
 include_directories ("inc" ${CURLCPP_SOURCE_DIR}/include ${jsoncpp_SOURCE_DIR}/include ${FRUIT_SOURCE_DIR}/include)
 set(BACKEND_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/inc PARENT_SCOPE)
 
