@@ -20,8 +20,6 @@ set(BACKEND_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/inc PARENT_SCOPE)
 #set(BACKEND_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/model/inc PARENT_SCOPE)
 
 include_directories("model/inc" "repository/inc"
-#   ${FRUIT_INCLUDE_DIR}
-#   ${GLOG_INCLUDE_DIR}
 )
 
 add_library(${PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})
