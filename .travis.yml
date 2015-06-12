@@ -1,0 +1,18 @@
+language: cpp
+
+compiler:
+  - g++
+  - clang++
+
+os: linux
+
+before_install:
+  - sudo apt-get undate
+  - sudo apt-get install libgoogle-glog-dev
+
+before_script:
+  - mkdir build
+  - cd build
+  - cmake ..
+
+script: make
